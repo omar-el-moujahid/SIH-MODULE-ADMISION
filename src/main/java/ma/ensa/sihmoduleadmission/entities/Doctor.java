@@ -2,6 +2,7 @@ package ma.ensa.sihmoduleadmission.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,23 +11,24 @@ import ma.ensa.sihmoduleadmission.entities.enums.Gender;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-@Entity
+import java.util.Date;@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Patient {
+
+public class Doctor {
     @Id
     private String CNE;
     private String firstname;
     private String lastname;
     private String adress;
+    private String offecNomber;
     private String contact;
     private String mail;
     private Date dateofbirth;
     private Gender gender;
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "medcine")
     Collection<Appointment> appointments = new ArrayList<>();
-    @OneToMany(mappedBy = "patient")
-    private Collection<Medical_History> medicaleHestories ;
+    @ManyToOne
+    private Specialty specialty;
 }
