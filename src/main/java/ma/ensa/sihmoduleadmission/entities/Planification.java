@@ -22,9 +22,9 @@ public class Planification {
     @Temporal(TemporalType.DATE)
     private Date date;
     private String startAt;
-    private String endat;
+    private String endAt;
     @NotNull
-    private int capacitt;
+    private int capacity;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Doctor> patients = new ArrayList<>();
 }

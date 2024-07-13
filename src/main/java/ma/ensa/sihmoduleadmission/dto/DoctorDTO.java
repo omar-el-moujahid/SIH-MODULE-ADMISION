@@ -16,5 +16,5 @@ public class DoctorDTO {
     private String mail;
     private Date dateofbirth;
     private Gender gender;
-    private SpecialtyDTO specialtyDTO;
+    private String specialtyDTO;
 }

@@ -9,7 +9,7 @@ public class PlanificationDTO {
     private Long id;
     private Date date;
     private String startAt;
-    private String endat;
-    private int capacitt;
+    private String endAt;
+    private int capacity;
 
 }

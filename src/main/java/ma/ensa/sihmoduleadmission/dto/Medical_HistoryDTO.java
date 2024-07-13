@@ -6,7 +6,9 @@ import java.util.Date;
 public class Medical_HistoryDTO {
     private Long id ;
     private Date date;
-    private PatientDTO patientDTO;
-    private DoctorDTO medcineresponsable;
+    private String  doctorFirstname;
+    private String  doctorLastname;
+    private String  patientFirstname;
+    private String  patientLastname;
     private String description;
 }

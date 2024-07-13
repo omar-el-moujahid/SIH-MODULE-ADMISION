@@ -6,10 +6,12 @@ import java.util.Date;
 @Data
 public class AppointmentDTO {
     private Long id;
-    private String  doctorFullname;
-    private String  patientFullname;
+    private String  doctorFirstname;
+    private String  doctorLastname;
+    private String  patientFirstname;
+    private String  patientLastname;
     private Date dateofRDV ;
-    private SpecialtyDTO specialtyDTO;
+    private String specialtyDTO;
     private Boolean ispasse;
     private Boolean annule;
 

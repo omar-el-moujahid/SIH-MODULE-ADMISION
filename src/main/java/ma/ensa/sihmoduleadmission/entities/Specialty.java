@@ -19,7 +19,7 @@ public class Specialty {
     private Long id ;
     @NotNull
     @Column(unique = true)
-    private String specialeteName;
+    private String specialtyName;
     @OneToMany
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY )
     private Collection<Doctor> doctors;
