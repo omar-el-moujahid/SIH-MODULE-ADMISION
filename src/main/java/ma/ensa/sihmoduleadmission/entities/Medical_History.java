@@ -1,7 +1,6 @@
 package ma.ensa.sihmoduleadmission.entities;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +13,8 @@ import java.util.Date;
 public class Medical_History {
     @Id
     private Long id ;
+    @NotNull
+    @Temporal(TemporalType.DATE)
     private Date date;
     @ManyToOne
     private Patient patient;

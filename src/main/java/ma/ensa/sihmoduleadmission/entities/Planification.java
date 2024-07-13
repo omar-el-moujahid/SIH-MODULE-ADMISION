@@ -1,9 +1,7 @@
 package ma.ensa.sihmoduleadmission.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,11 +18,13 @@ import java.util.List;
 public class Planification {
     @Id
     private Long id;
+    @NotNull
+    @Temporal(TemporalType.DATE)
     private Date date;
     private String startAt;
     private String endat;
+    @NotNull
     private int capacitt;
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Patient> patients = new ArrayList<>();
-
+    private List<Doctor> patients = new ArrayList<>();
 }
