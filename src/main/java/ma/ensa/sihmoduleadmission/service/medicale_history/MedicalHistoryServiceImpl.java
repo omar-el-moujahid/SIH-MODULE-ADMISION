@@ -1,4 +1,4 @@
-package ma.ensa.sihmoduleadmission.service.Medical_HistoryService;
+package ma.ensa.sihmoduleadmission.service.medicale_history;
 
 import lombok.extern.slf4j.Slf4j;
 import ma.ensa.sihmoduleadmission.repos.Medical_HistoryRepo;

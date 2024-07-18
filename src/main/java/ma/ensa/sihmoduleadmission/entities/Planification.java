@@ -3,6 +3,7 @@ package ma.ensa.sihmoduleadmission.entities;
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.ensa.sihmoduleadmission.entities.securiy.RolesApp;
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Planification {
     @Id
     private Long id;
