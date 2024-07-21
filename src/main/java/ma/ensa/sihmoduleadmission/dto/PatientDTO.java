@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import ma.ensa.sihmoduleadmission.entities.enums.Gender;
 
 import java.util.Date;
 @Data
@@ -38,7 +39,9 @@ public class PatientDTO {
     private Date dateofbirth;
 
     @NotNull
-    private String gender;
+    private Gender gender;
     @NotNull
     private String Password;
+
+    private String role;
 }

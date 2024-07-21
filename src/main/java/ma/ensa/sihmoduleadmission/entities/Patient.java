@@ -10,7 +10,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.ensa.sihmoduleadmission.entities.enums.Gender;
+import ma.ensa.sihmoduleadmission.entities.securiy.RolesApp;
 
+import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -46,4 +48,6 @@ public class Patient {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY )
     @OneToMany(mappedBy = "patient")
     private Collection<Medical_History> medicaleHestories ;
+    @ManyToOne
+    private RolesApp role;
 }

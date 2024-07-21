@@ -1,14 +1,23 @@
 package ma.ensa.sihmoduleadmission.web;
 
+import ma.ensa.sihmoduleadmission.dto.SpecialtyDTO;
+import ma.ensa.sihmoduleadmission.entities.Specialty;
 import ma.ensa.sihmoduleadmission.service.medicale_history.MedicalHistoryServiceImpl;
 import ma.ensa.sihmoduleadmission.service.appointment.AppointmentServiceImpl;
 import ma.ensa.sihmoduleadmission.service.doctor.DoctorServicesImpl;
 import ma.ensa.sihmoduleadmission.service.patient.PatientServicesImpl;
 import ma.ensa.sihmoduleadmission.service.planification.PlanificationServicesImpl;
 import ma.ensa.sihmoduleadmission.service.speciality.SpecialtyServicesImpl;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
+@CrossOrigin
+@Validated
 public class SpecialityRestControleur {
     private PatientServicesImpl patientServicesImpl;
     private DoctorServicesImpl doctorServicesImpl;
@@ -26,5 +35,10 @@ public class SpecialityRestControleur {
         this.appointmentServiceImpl = appointmentService;
         this.planificationServicesImpl = planificationServices;
         this.specialtyServicesImpl = specialtyServices;
+    }
+    @GetMapping("/specialities")
+    public List<SpecialtyDTO> specialtyDTOS() {
+        List<SpecialtyDTO> specialties = specialtyServicesImpl.findAll();
+        return specialtyServicesImpl.findAll();
     }
 }

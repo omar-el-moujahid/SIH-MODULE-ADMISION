@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.ensa.sihmoduleadmission.entities.enums.Gender;
+import ma.ensa.sihmoduleadmission.entities.securiy.RolesApp;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,4 +46,6 @@ public class Doctor {
     Collection<Appointment> appointments = new ArrayList<>();
     @ManyToOne
     private Specialty specialty;
+    @ManyToOne
+    private RolesApp role;
 }

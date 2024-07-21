@@ -13,7 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class Medical_History {
-    @Id
+    @Id     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id ;
     @NotNull
     @Temporal(TemporalType.DATE)

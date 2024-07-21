@@ -11,7 +11,8 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class Appointment {
-    @Id
+    @Id     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     @NotNull
     @ManyToOne

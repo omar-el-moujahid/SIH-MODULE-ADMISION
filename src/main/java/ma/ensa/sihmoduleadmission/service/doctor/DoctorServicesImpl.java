@@ -20,4 +20,9 @@ public class DoctorServicesImpl  implements DoctorServices {
     public Doctor save(Doctor doctor) {
         return doctorRepo.save(doctor);
     }
+
+    @Override
+    public Doctor findbyid(String id) {
+        return doctorRepo.findById(id).orElse(null);
+    }
 }

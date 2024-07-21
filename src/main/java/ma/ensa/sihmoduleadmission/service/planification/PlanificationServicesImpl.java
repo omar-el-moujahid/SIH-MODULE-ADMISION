@@ -1,9 +1,15 @@
 package ma.ensa.sihmoduleadmission.service.planification;
 
 import lombok.extern.slf4j.Slf4j;
+import ma.ensa.sihmoduleadmission.entities.Planification;
+import ma.ensa.sihmoduleadmission.entities.Specialty;
+import ma.ensa.sihmoduleadmission.expetion.ApiRequestExpetion;
 import ma.ensa.sihmoduleadmission.repos.PlanificationRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -14,5 +20,19 @@ public class PlanificationServicesImpl implements PlanificationServices {
 
     public PlanificationServicesImpl(PlanificationRepo planificationRepo) {
         this.planificationRepo = planificationRepo;
+    }
+
+    @Override
+    public Planification save(Planification planification) {
+        return planificationRepo.save(planification);
+    }
+
+    @Override
+    public Planification findAvailable(Specialty specialty) {
+        Planification planifications = planificationRepo.findAvailablePlanifications(specialty.getId(), new Date());
+        if (planifications==null) {
+            throw new ApiRequestExpetion("No appointments are available for this specialty");
+        }
+        return planifications;
     }
 }

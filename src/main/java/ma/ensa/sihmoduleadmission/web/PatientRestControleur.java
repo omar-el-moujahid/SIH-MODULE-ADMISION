@@ -12,6 +12,7 @@ import ma.ensa.sihmoduleadmission.service.patient.PatientServicesImpl;
 import ma.ensa.sihmoduleadmission.service.planification.PlanificationServicesImpl;
 import ma.ensa.sihmoduleadmission.service.speciality.SpecialtyServicesImpl;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -78,6 +79,12 @@ public class PatientRestControleur {
         Patient patient = sihMapper.PatientDTOToPatient(patientDTO);
         patient.setPassword(passwordEncoder.encode(patientDTO.getPassword()));
         patientServicesImpl.save(patient);
+    }
+
+    @PostMapping("/patient/Updatepassword")
+    public ResponseEntity<String> updatePassword(@RequestParam String CIN, @RequestParam String Oldpassword, @RequestParam String Newpassword) {
+        patientServicesImpl.Updatepassword(CIN, Oldpassword, Newpassword);
+        return ResponseEntity.ok("Password updated successfully");
     }
 }
 

@@ -4,4 +4,5 @@ import ma.ensa.sihmoduleadmission.entities.Doctor;
 
 public interface DoctorServices {
     Doctor save(Doctor doctor);
+    Doctor findbyid(String id);
 }

@@ -2,19 +2,29 @@ package ma.ensa.sihmoduleadmission.mapper;
 
 import ma.ensa.sihmoduleadmission.dto.*;
 import ma.ensa.sihmoduleadmission.entities.*;
+import ma.ensa.sihmoduleadmission.repos.Rolerepo;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SIHMapper {
+    private Rolerepo rolerepo ;
+
+    public SIHMapper(Rolerepo rolerepo) {
+        this.rolerepo = rolerepo;
+    }
+
     public PatientDTO PatientToDTOPatient(Patient patient){
         PatientDTO patientDTO = new PatientDTO();
         BeanUtils.copyProperties(patient,patientDTO);
+        patientDTO.setRole(patient.getRole().getRolename());
         return patientDTO;
     }
     public Patient PatientDTOToPatient(PatientDTO patientDTO){
         Patient patient = new Patient();
         BeanUtils.copyProperties(patientDTO,patient);
+//        patient.setRole(rolerepo.findByRolename(patientDTO.getRole()));
         return patient;
     }
     public DoctorDTO DoctorToDTODoctor(Doctor doctor){

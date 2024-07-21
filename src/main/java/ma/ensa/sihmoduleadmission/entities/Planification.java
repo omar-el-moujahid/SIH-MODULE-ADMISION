@@ -19,6 +19,7 @@ import java.util.List;
 @Builder
 public class Planification {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
     @Temporal(TemporalType.DATE)
@@ -27,6 +28,9 @@ public class Planification {
     private String endAt;
     @NotNull
     private int capacity;
+    private int currentcapacity;
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Doctor> patients = new ArrayList<>();
+    private List<Doctor> doctors = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Specialty> specialties = new ArrayList<>();
 }
