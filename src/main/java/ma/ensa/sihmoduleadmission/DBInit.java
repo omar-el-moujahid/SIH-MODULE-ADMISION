@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-@Component
+//@Component
 public class DBInit implements ApplicationRunner {
     private PatientServicesImpl  patientServicesImpl ;
     private DoctorServicesImpl doctorServicesImpl;
@@ -49,25 +49,25 @@ public class DBInit implements ApplicationRunner {
         this.sihMapper = sihMapper;
     }
 
-    @Override
+//    @Override
     public void run(ApplicationArguments args) throws Exception {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2024, Calendar.JULY, 29);
-        Specialty specialty=specialtyServicesImpl.findbyid(Long.valueOf(2));
-        Planification planification = new Planification();
-        planification.setCapacity(3);
-        planification.setDate(calendar.getTime());
-        List<Specialty> specialties = new ArrayList<>();
-        specialties.add(specialty);
-        planification.setSpecialties(specialties);
-
-        List<Doctor> doctors = new ArrayList<>();
-        doctors.add(doctorServicesImpl.findbyid("CD9180521"));
-        planification.setDoctors(doctors);
-        planification.setStartAt("8pm");
-        planification.setEndAt("8am");
-        planificationServicesImpl.save(planification);
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(2024, Calendar.JULY, 28);
+//        Specialty specialty=specialtyServicesImpl.findbyid(Long.valueOf(3));
+//        Planification planification = new Planification();
+//        planification.setCapacity(3);
+//        planification.setDate(calendar.getTime());
+//        List<Specialty> specialties = new ArrayList<>();
+//        specialties.add(specialty);
+//        planification.setSpecialties(specialties);
+//
+//        List<Doctor> doctors = new ArrayList<>();
+//        doctors.add(doctorServicesImpl.findbyid("CD9180531"));
+//        planification.setDoctors(doctors);
+//        planification.setStartAt("8pm");
+//        planification.setEndAt("8am");
+//        planificationServicesImpl.save(planification);
 
 //        Specialty specialty = specialtyServicesImpl.findbyid(1L);
 //        List<Planification> planifications = planificationServicesImpl.findAvailable(specialty);
@@ -113,6 +113,42 @@ public class DBInit implements ApplicationRunner {
 //
 //// Save the appointment
 //        appointmentServiceImpl.save(appointment);
+
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2023, Calendar.JANUARY, 2);
+        Medical_History  medicalHistory = new Medical_History();
+        medicalHistory.setDate(calendar.getTime());
+        medicalHistory.setPatient(patientServicesImpl.findbyid("CD918057"));
+        medicalHistory.setMedcineresponsable(doctorServicesImpl.findbyid("CD9180501"));
+        medicalHistory.setMedicine("Paracetamol");
+        medicalHistory.setDescription("Patient was treated for a mild fever.");
+        medicalHistory.setThedisease("Mild Fever");
+        medicalHistoryServiceImpl.save(medicalHistory);
+
+        calendar.set(2023, Calendar.FEBRUARY, 15);
+        medicalHistory = new Medical_History();
+        medicalHistory.setDate(calendar.getTime());
+        medicalHistory.setPatient(patientServicesImpl.findbyid("CD918057"));
+        medicalHistory.setMedcineresponsable(doctorServicesImpl.findbyid("CD9180511"));
+        medicalHistory.setMedicine("Amoxicillin");
+        medicalHistory.setDescription("Patient was treated for a bacterial infection.");
+        medicalHistory.setThedisease("Bacterial Infection");
+        medicalHistory.setNotes("Did a radiographic image and blood analysis.");
+
+        medicalHistoryServiceImpl.save(medicalHistory);
+
+        calendar.set(2023, Calendar.APRIL, 10);
+        medicalHistory = new Medical_History();
+        medicalHistory.setDate(calendar.getTime());
+        medicalHistory.setPatient(patientServicesImpl.findbyid("CD918057"));
+        medicalHistory.setMedcineresponsable(doctorServicesImpl.findbyid("CD9180521"));
+        medicalHistory.setMedicine("Lisinopril");
+        medicalHistory.setDescription("Patient was treated for high blood pressure.");
+        medicalHistory.setThedisease("Hypertension");
+
+        // Save the fourth medical history entry
+        medicalHistoryServiceImpl.save(medicalHistory);
 
     }
 }

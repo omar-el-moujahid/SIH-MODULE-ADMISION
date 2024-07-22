@@ -41,10 +41,6 @@ public class SIHMapper {
     public AppointmentDTO AppointmentToDTOAppointment(Appointment appointment){
         AppointmentDTO appointmentDTO = new AppointmentDTO();
         BeanUtils.copyProperties(appointment,appointmentDTO);
-        appointmentDTO.setDoctorFirstname(appointment.getDoctor().getFirstname());
-        appointmentDTO.setDoctorLastname(appointment.getDoctor().getLastname());
-        appointmentDTO.setPatientFirstname(appointment.getPatient().getFirstname());
-        appointmentDTO.setPatientLastname(appointment.getPatient().getLastname());
         appointmentDTO.setSpecialtyDTO(appointment.getSpecialty().getSpecialtyName());
         return appointmentDTO;
     }

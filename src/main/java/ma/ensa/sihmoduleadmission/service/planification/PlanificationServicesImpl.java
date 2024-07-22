@@ -28,10 +28,10 @@ public class PlanificationServicesImpl implements PlanificationServices {
     }
 
     @Override
-    public Planification findAvailable(Specialty specialty) {
-        Planification planifications = planificationRepo.findAvailablePlanifications(specialty.getId(), new Date());
-        if (planifications==null) {
-            throw new ApiRequestExpetion("No appointments are available for this specialty");
+    public List <Planification> findavalabel(Specialty specialty) {
+        List <Planification> planifications = planificationRepo.findAvailablePlanifications(specialty.getId(),new Date());
+        if(planifications==null){
+            throw new ApiRequestExpetion("No Appointement are avalabel for this speciality");
         }
         return planifications;
     }

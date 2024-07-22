@@ -14,7 +14,6 @@ import java.util.Date;
 @Builder
 public class Medical_History {
     @Id     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id ;
     @NotNull
     @Temporal(TemporalType.DATE)
@@ -24,4 +23,7 @@ public class Medical_History {
     @ManyToOne
     private Doctor medcineresponsable;
     private String description;
+    private String thedisease;
+    private String Medicine;
+    private String Notes;
 }

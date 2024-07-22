@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface PlanificationServices {
     Planification save(Planification planification);
-    Planification findAvailable(Specialty specialty);
+    List <Planification> findavalabel(Specialty specialty);
 }
