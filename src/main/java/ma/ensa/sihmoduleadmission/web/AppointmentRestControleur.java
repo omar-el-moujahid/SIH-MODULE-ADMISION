@@ -1,6 +1,7 @@
 package ma.ensa.sihmoduleadmission.web;
 
 import ma.ensa.sihmoduleadmission.dto.AppointmentDTO;
+import ma.ensa.sihmoduleadmission.dto.AppointmentDTOForDoctor;
 import ma.ensa.sihmoduleadmission.entities.Appointment;
 import ma.ensa.sihmoduleadmission.service.appointment.AppointmentServiceImpl;
 import ma.ensa.sihmoduleadmission.service.doctor.DoctorServicesImpl;
@@ -46,5 +47,9 @@ public class AppointmentRestControleur {
     @DeleteMapping("chu/patient/deleteappointment/{appointmentId}")
     void deleteAppointement(@PathVariable(name = "appointmentId") Long id){
         appointmentServiceImpl.deleteappointement(id);
+    }
+    @GetMapping("chu/doctor/TodaySAppointment")
+    List<AppointmentDTOForDoctor> TodaySAppointment(@RequestParam String CINDocotor , String SpecialityName){
+       return appointmentServiceImpl.TodaySAppointment(CINDocotor,SpecialityName);
     }
 }

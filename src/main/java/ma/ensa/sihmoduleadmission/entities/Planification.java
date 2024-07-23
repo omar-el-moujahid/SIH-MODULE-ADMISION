@@ -29,6 +29,9 @@ public class Planification {
     @NotNull
     private int capacity;
     private int currentcapacity;
+    private int TotalePatientAttend;
+    private int TotalePatientMissed;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Doctor> doctors = new ArrayList<>();
     @ManyToMany(fetch = FetchType.EAGER)

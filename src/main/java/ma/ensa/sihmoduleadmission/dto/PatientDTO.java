@@ -11,7 +11,6 @@ import java.util.Date;
 @Data
 public class PatientDTO {
     @Valid
-
     @NotNull
     @Size(min =8 )
     private String CNE;
@@ -19,7 +18,6 @@ public class PatientDTO {
     @NotNull
     @Size(min=8 , message = "la taille doit être superieur a 8 ")
     private String password;
-
     @NotNull
     private String firstname;
 

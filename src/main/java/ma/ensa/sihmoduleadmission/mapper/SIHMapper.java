@@ -31,6 +31,7 @@ public class SIHMapper {
         DoctorDTO doctorDTO = new DoctorDTO();
         BeanUtils.copyProperties(doctor,doctorDTO);
         doctorDTO.setSpecialtyDTO(doctor.getSpecialty().getSpecialtyName());
+        doctorDTO.setRole(doctor.getRole().getRolename());
         return doctorDTO;
     }
     public Doctor DoctorDTOToDoctor(DoctorDTO doctorDTO){
@@ -43,6 +44,14 @@ public class SIHMapper {
         BeanUtils.copyProperties(appointment,appointmentDTO);
         appointmentDTO.setSpecialtyDTO(appointment.getSpecialty().getSpecialtyName());
         return appointmentDTO;
+    }
+    public AppointmentDTOForDoctor AppointmentToAppointmentDTOForDoctor(Appointment appointment){
+        AppointmentDTOForDoctor AppointmentDTOForDoctor = new AppointmentDTOForDoctor();
+        BeanUtils.copyProperties(appointment,AppointmentDTOForDoctor);
+        AppointmentDTOForDoctor.setPatientlastname(appointment.getPatient().getLastname());
+        AppointmentDTOForDoctor.setPatientfirstname(appointment.getPatient().getFirstname());
+        AppointmentDTOForDoctor.setCne(appointment.getPatient().getCNE());
+        return AppointmentDTOForDoctor;
     }
     public Appointment AppointmentDTOToAppointment(AppointmentDTO appointmentDTO){
         Appointment appointment = new Appointment();

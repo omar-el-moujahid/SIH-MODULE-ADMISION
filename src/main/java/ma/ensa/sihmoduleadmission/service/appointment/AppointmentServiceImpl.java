@@ -2,45 +2,48 @@ package ma.ensa.sihmoduleadmission.service.appointment;
 
 import lombok.extern.slf4j.Slf4j;
 import ma.ensa.sihmoduleadmission.dto.AppointmentDTO;
-import ma.ensa.sihmoduleadmission.dto.PatientDTO;
-import ma.ensa.sihmoduleadmission.entities.Appointment;
-import ma.ensa.sihmoduleadmission.entities.Patient;
-import ma.ensa.sihmoduleadmission.entities.Planification;
-import ma.ensa.sihmoduleadmission.entities.Specialty;
+import ma.ensa.sihmoduleadmission.dto.AppointmentDTOForDoctor;
+import ma.ensa.sihmoduleadmission.entities.*;
 import ma.ensa.sihmoduleadmission.expetion.ApiRequestExpetion;
 import ma.ensa.sihmoduleadmission.mapper.SIHMapper;
 import ma.ensa.sihmoduleadmission.repos.AppointmentRepo;
-import ma.ensa.sihmoduleadmission.service.patient.PatientServicesImpl;
-import ma.ensa.sihmoduleadmission.service.planification.PlanificationServicesImpl;
+import ma.ensa.sihmoduleadmission.service.doctor.DoctorServices;
+import ma.ensa.sihmoduleadmission.service.patient.PatientServices;
+import ma.ensa.sihmoduleadmission.service.planification.PlanificationServices;
 import ma.ensa.sihmoduleadmission.service.sendemail.EmailSende;
-import ma.ensa.sihmoduleadmission.service.speciality.SpecialtyServicesImpl;
+import ma.ensa.sihmoduleadmission.service.speciality.SpecialtyServices;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @Slf4j
 public class AppointmentServiceImpl implements AppointmentService {
-    private final SpecialtyServicesImpl specialtyServicesImpl;
-    private final PlanificationServicesImpl planificationServicesImpl;
-    private final PatientServicesImpl patientServicesImpl;
+    private SpecialtyServices specialtyServicesImpl;
+    private PlanificationServices planificationServicesImpl;
+    private PatientServices patientServicesImpl;
+    private DoctorServices doctorServicesImpl;
     private AppointmentRepo appointmentRepo;
-    private SpecialtyServicesImpl specialtyServices;
-    private PlanificationServicesImpl planificationServices;
+    private PlanificationServices planificationServices;
     private SIHMapper sihMapper;
     private  EmailSende emailSende;
-    public AppointmentServiceImpl(AppointmentRepo appointmentRepo, SpecialtyServicesImpl specialtyServices, PlanificationServicesImpl planificationServices, SpecialtyServicesImpl specialtyServicesImpl, PlanificationServicesImpl planificationServicesImpl, PatientServicesImpl patientServicesImpl, SIHMapper sihMapper, EmailSende emailSende) {
-        this.appointmentRepo = appointmentRepo;
-        this.specialtyServices = specialtyServices;
-        this.planificationServices = planificationServices;
+
+    public AppointmentServiceImpl(SpecialtyServices specialtyServicesImpl,
+                                  @Lazy PlanificationServices planificationServicesImpl,
+                                  PatientServices patientServicesImpl, DoctorServices doctorServicesImpl,
+                                  AppointmentRepo appointmentRepo, PlanificationServices planificationServices,
+                                  SIHMapper sihMapper, EmailSende emailSende) {
         this.specialtyServicesImpl = specialtyServicesImpl;
         this.planificationServicesImpl = planificationServicesImpl;
         this.patientServicesImpl = patientServicesImpl;
+        this.doctorServicesImpl = doctorServicesImpl;
+        this.appointmentRepo = appointmentRepo;
+        this.planificationServices = planificationServices;
         this.sihMapper = sihMapper;
         this.emailSende = emailSende;
     }
@@ -108,7 +111,26 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public void deleteappointement(Long id) {
-        Appointment byId = appointmentRepo.findById(id).orElseThrow( ()-> new ApiRequestExpetion("Appointment not existe"));
+        Appointment byId = appointmentRepo.findById(id).orElseThrow(()->new ApiRequestExpetion("appointment not found"));
         appointmentRepo.deleteById(id);
+        Planification planification = planificationServices.findPlanificationBySpecialtiesAndAndDate(byId.getSpecialty(), byId.getDateofRDV());
+        planification.setCurrentcapacity(planification.getCurrentcapacity()-1);
+        planificationServices.save(planification);
+    }
+    @Override
+    public List<AppointmentDTOForDoctor> TodaySAppointment(String cinDocotor, String specialityName) {
+        Doctor doctor = doctorServicesImpl.findbyid(cinDocotor);
+        Specialty specialty = specialtyServicesImpl.findbyname(specialityName);
+        List<Appointment> appointments =
+                appointmentRepo.findAppointmentByDoctorAndSpecialtyAndDateofRDVEqualsAndAnnuleFalseAndIspasseFalse(doctor, specialty, new Date());
+        List<AppointmentDTOForDoctor> appointmentDTOS = appointments.stream()
+                .map(appointment -> sihMapper.AppointmentToAppointmentDTOForDoctor(appointment))
+                .collect(Collectors.toList());
+        return appointmentDTOS;
+    }
+
+    @Override
+    public Appointment findbyid(Long id) {
+        return appointmentRepo.findById(id).orElseThrow(() -> new ApiRequestExpetion("Appointment nof found"));
     }
 }
