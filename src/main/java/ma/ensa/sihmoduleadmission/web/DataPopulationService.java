@@ -34,52 +34,29 @@
 //
 //    @PostConstruct
 //    public void populateData() {
-//        createDoctors();
 //        createPlanifications();
 //    }
-//
-//    private void createDoctors() {
-//        List<Specialty> specialties = specialtyRepository.findAll();
-//
-//        for (int i = 0; i < specialties.size(); i++) {
-//            Specialty specialty = specialties.get(i);
-//            Doctor doctor = Doctor.builder()
-//                    .CNE("CD91807" + (i + 1))
-//                    .password("12345678")
-//                    .firstname("Doctor" + (i + 1))
-//                    .lastname("Lastname" + (i + 1))
-//                    .adress("Adress" + (i + 1))
-//                    .offecNomber("Office" + (i + 1))
-//                    .contact("1234567890")
-//                    .mail("doctor" + (i + 1) + "@hospital.com")
-//                    .dateofbirth(new Date())
-//                    .gender(Gender.M)
-//                    .specialty(specialty)
-//                    .build();
-//            doctorRepository.save(doctor);
-//        }
-//    }
-//
 //    private void createPlanifications() {
 //        List<Doctor> doctors = doctorRepository.findAll();
+//        List<Specialty> specialties = specialtyRepository.findAll();
 //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //
-//        for (Doctor doctor : doctors) {
-//            for (int i = 0; i < 15; i++) {
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.add(Calendar.DAY_OF_YEAR, i);
+//        Calendar calendar = Calendar.getInstance();
+//        // Iterate over each specialty
+//        for (Specialty specialty : specialties) {
+//                calendar.add(Calendar.DAY_OF_YEAR, 0); // Move to the next day
+//                 Planification planification = Planification.builder()
+//                            .date(calendar.getTime())
+//                            .startAt("09:00")
+//                            .endAt("17:00")
+//                            .capacity(10)
+//                            .currentcapacity(0)
+//                            .doctors(doctors) // Associate all doctors
+//                            .specialty(specialty) // Assign the current specialty
+//                            .build();
+//                    planificationRepository.save(planification);
 //
-//                Planification planification = Planification.builder()
-//                        .date(calendar.getTime())
-//                        .startAt("09:00")
-//                        .endAt("17:00")
-//                        .capacity(10)
-//                        .currentcapacity(0)
-//                        .doctors(List.of(doctor))
-//                        .specialties(List.of(doctor.getSpecialty()))
-//                        .build();
-//                planificationRepository.save(planification);
-//            }
 //        }
 //    }
+//
 //}

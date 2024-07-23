@@ -59,7 +59,7 @@ public class PlanificationServicesImpl implements PlanificationServices {
     }
     @Override
     public Planification findPlanificationBySpecialtiesAndAndDate(Specialty specialty, Date date){
-        List <Planification> planification = planificationRepo.findPlanificationBySpecialtiesAndAndDate(specialty, date);
+        List <Planification> planification = planificationRepo.findPlanificationBySpecialtyAndAndDate(specialty, date);
         return planification.getFirst();
     }
     @Override
@@ -71,7 +71,7 @@ public class PlanificationServicesImpl implements PlanificationServices {
         Appointment appointment = appointmentServiceimp.findbyid(id);
         appointment.setIspasse(true);
         appointmentServiceimp.save(appointment);
-        List <Planification> planification = planificationRepo.findPlanificationBySpecialtiesAndAndDate(appointment.getSpecialty(), appointment.getDateofRDV());
+        List <Planification> planification = planificationRepo.findPlanificationBySpecialtyAndAndDate(appointment.getSpecialty(), appointment.getDateofRDV());
         if (planification.isEmpty()) {
             throw new ApiRequestExpetion("No planifications found for the given specialty and date.");
         }
@@ -85,12 +85,12 @@ public class PlanificationServicesImpl implements PlanificationServices {
         Appointment appointment = appointmentServiceimp.findbyid(id);
         appointment.setAnnule(true);
         appointmentServiceimp.save(appointment);
-        List <Planification> planification = planificationRepo.findPlanificationBySpecialtiesAndAndDate(appointment.getSpecialty(), appointment.getDateofRDV());
+        List <Planification> planification = planificationRepo.findPlanificationBySpecialtyAndAndDate(appointment.getSpecialty(), appointment.getDateofRDV());
         if (planification.isEmpty()) {
             throw new ApiRequestExpetion("No planifications found for the given specialty and date.");
         }
         Planification firstPlanification = planification.get(0);
-        firstPlanification.setTotalePatientAttend(firstPlanification.getTotalePatientAttend() - 1);
+        firstPlanification.setTotalePatientMissed(firstPlanification.getTotalePatientMissed() + 1);
         planificationRepo.save(firstPlanification);
     }
 }

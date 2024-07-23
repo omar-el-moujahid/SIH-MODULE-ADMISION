@@ -34,6 +34,6 @@ public class Planification {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Doctor> doctors = new ArrayList<>();
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Specialty> specialties = new ArrayList<>();
+    @ManyToOne
+    private Specialty specialty;
 }

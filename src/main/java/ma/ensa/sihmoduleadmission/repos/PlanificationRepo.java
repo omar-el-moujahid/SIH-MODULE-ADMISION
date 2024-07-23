@@ -11,8 +11,9 @@ import java.util.List;
 
 public interface PlanificationRepo extends JpaRepository<Planification,Long> {
     @Transactional
-    @Query("SELECT p FROM Planification p JOIN p.specialties s WHERE s.id = :specialtyId AND p.date > :date AND p.currentcapacity < p.capacity")
+    @Query("SELECT p FROM Planification p  WHERE p.specialty.id = :specialtyId AND p.date > :date AND p.currentcapacity < p.capacity")
     List<Planification> findAvailablePlanifications(Long specialtyId,Date date);
-    List<Planification> findPlanificationBySpecialtiesAndAndDate(Specialty specialty , Date date);
+    List<Planification> findPlanificationBySpecialtyAndAndDate(Specialty specialty , Date date);
+
 
 }

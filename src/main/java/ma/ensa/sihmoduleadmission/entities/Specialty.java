@@ -28,4 +28,6 @@ public class Specialty {
     @OneToMany
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY )
     private Collection<Appointment> appointments;
+    @OneToMany(mappedBy = "specialty")
+    private Collection<Planification> planifications;
 }
