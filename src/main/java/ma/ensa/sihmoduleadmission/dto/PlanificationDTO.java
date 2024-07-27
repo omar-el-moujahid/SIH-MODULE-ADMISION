@@ -11,5 +11,9 @@ public class PlanificationDTO {
     private String startAt;
     private String endAt;
     private int capacity;
+    private int currentcapacity;
+    private int TotalePatientAttend;
+    private int TotalePatientMissed;
+    private String SpecialityName;
 
 }

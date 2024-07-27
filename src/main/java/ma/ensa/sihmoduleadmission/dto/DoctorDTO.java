@@ -13,7 +13,7 @@ import java.util.Date;
 public class DoctorDTO {
     @Valid
     @NotNull
-    @Size(min =8 )
+    @Size(min =8 , max=9)
     private String CNE;
 
     @NotNull

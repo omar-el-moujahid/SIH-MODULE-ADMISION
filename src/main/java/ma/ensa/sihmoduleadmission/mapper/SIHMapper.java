@@ -2,16 +2,22 @@ package ma.ensa.sihmoduleadmission.mapper;
 
 import ma.ensa.sihmoduleadmission.dto.*;
 import ma.ensa.sihmoduleadmission.entities.*;
+import ma.ensa.sihmoduleadmission.entities.securiy.RolesApp;
+import ma.ensa.sihmoduleadmission.entities.securiy.UsersApp;
 import ma.ensa.sihmoduleadmission.repos.Rolerepo;
+import ma.ensa.sihmoduleadmission.service.doctor.DoctorServices;
+import ma.ensa.sihmoduleadmission.service.patient.PatientServices;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class SIHMapper {
     private Rolerepo rolerepo ;
-
-    public SIHMapper(Rolerepo rolerepo) {
+    public SIHMapper(Rolerepo rolerepo ) {
         this.rolerepo = rolerepo;
     }
 
@@ -88,6 +94,7 @@ public class SIHMapper {
     public PlanificationDTO PlanificationToDTOPlanification(Planification planification) {
         PlanificationDTO planificationDTO = new PlanificationDTO();
         BeanUtils.copyProperties(planification, planificationDTO);
+        planificationDTO.setSpecialityName(planification.getSpecialty().getSpecialtyName());
         return planificationDTO;
     }
 
@@ -107,4 +114,34 @@ public class SIHMapper {
         BeanUtils.copyProperties(specialtyDTO, specialty);
         return specialty;
     }
+    public Medical_History FromMedical_HistoryFromDoctorDTO(Medical_HistoryFromDoctorDTO dto ){
+        Medical_History medicalHistory = new Medical_History();
+        BeanUtils.copyProperties(dto, medicalHistory);
+        return medicalHistory;
+    }
+    public UsersAppDTO toUsersAppDTO(UsersApp usersApp) {
+        UsersAppDTO usersAppDTO = new UsersAppDTO();
+        BeanUtils.copyProperties(usersApp, usersAppDTO);
+        usersAppDTO.setRoleApps(new ArrayList<>());
+
+        usersApp.getRoleApps().stream()
+                .map(RolesApp::getRolename) // Method reference for brevity
+                .forEach(usersAppDTO.getRoleApps()::add); // Add each role name to the list
+
+        return usersAppDTO;
+    }
+
+    public UsersApp toUsersApp(UsersAppDTO usersAppDTO) {
+        UsersApp usersApp = new UsersApp();
+        BeanUtils.copyProperties(usersAppDTO, usersApp);
+
+        usersApp.setRoleApps(new ArrayList<>());
+
+        usersAppDTO.getRoleApps().stream()
+                .map(roleName -> rolerepo.findByRolename(roleName))
+                .forEach(usersApp.getRoleApps()::add); // Add each role entity to the list
+
+        return usersApp;
+    }
+
 }

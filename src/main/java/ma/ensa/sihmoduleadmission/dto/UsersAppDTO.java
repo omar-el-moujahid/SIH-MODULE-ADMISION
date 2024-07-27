@@ -1,22 +1,21 @@
-package ma.ensa.sihmoduleadmission.entities.securiy;
+package ma.ensa.sihmoduleadmission.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
-import jdk.jfr.BooleanFlag;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.ensa.sihmoduleadmission.entities.enums.Gender;
+import ma.ensa.sihmoduleadmission.entities.securiy.RolesApp;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-@Entity
-@Data @AllArgsConstructor @NoArgsConstructor
-public class UsersApp {
+
+@Data
+public class UsersAppDTO {
     @Id
     private String CNE;
     @NotNull
@@ -37,11 +36,6 @@ public class UsersApp {
     private Date dateofbirth;
     @Email
     private String mail;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY )
-    @ManyToMany(fetch =FetchType.EAGER)
-    private List<RolesApp> roleApps = new ArrayList<>();
-
-    public boolean getActive() {
-        return active;
-    }
+    @NotNull
+    private List<String> roleApps = new ArrayList<>();
 }

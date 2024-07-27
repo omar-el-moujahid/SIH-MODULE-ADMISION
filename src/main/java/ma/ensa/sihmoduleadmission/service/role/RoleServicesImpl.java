@@ -32,6 +32,7 @@ public class RoleServicesImpl implements RoleServices {
     @Override
     public RolesApp findbyname(String s) {
         RolesApp byRolename = rolerepo.findByRolename(s);
+        if(byRolename==null) throw new ApiRequestExpetion("Role not found");
         return byRolename;
     }
 }

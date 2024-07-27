@@ -11,6 +11,7 @@ import ma.ensa.sihmoduleadmission.service.medicale_history.MedicalHistoryService
 import ma.ensa.sihmoduleadmission.service.patient.PatientServicesImpl;
 import ma.ensa.sihmoduleadmission.service.planification.PlanificationServicesImpl;
 import ma.ensa.sihmoduleadmission.service.speciality.SpecialtyServicesImpl;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,5 +88,6 @@ public class PatientRestControleur {
         patientServicesImpl.Updatepassword(CIN, Oldpassword, Newpassword);
         return ResponseEntity.ok("Password updated successfully");
     }
+
 }
 

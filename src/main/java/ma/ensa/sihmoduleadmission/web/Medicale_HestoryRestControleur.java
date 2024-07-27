@@ -1,6 +1,8 @@
 package ma.ensa.sihmoduleadmission.web;
 
+import jakarta.validation.Valid;
 import ma.ensa.sihmoduleadmission.dto.Medical_HistoryDTO;
+import ma.ensa.sihmoduleadmission.dto.Medical_HistoryFromDoctorDTO;
 import ma.ensa.sihmoduleadmission.entities.Medical_History;
 import ma.ensa.sihmoduleadmission.mapper.SIHMapper;
 import ma.ensa.sihmoduleadmission.service.appointment.AppointmentServiceImpl;
@@ -10,10 +12,7 @@ import ma.ensa.sihmoduleadmission.service.patient.PatientServicesImpl;
 import ma.ensa.sihmoduleadmission.service.planification.PlanificationServicesImpl;
 import ma.ensa.sihmoduleadmission.service.speciality.SpecialtyServicesImpl;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,5 +46,9 @@ public class Medicale_HestoryRestControleur {
         List<Medical_HistoryDTO> medicalHistoryDTOS = medicalHistories.stream().map(medicalHistory -> sihMapper.Medical_HistoryToDTOMedical_History(medicalHistory)
         ).collect(Collectors.toList());
         return medicalHistoryDTOS;
+    }
+    @PostMapping("chu/doctor/AddMedical-history")
+    public void addMedcilaToTHeHistory (@Valid @RequestBody Medical_HistoryFromDoctorDTO medicalHistory){
+         medicalHistoryServiceImpl.add(medicalHistory);
     }
 }
