@@ -40,4 +40,6 @@ public interface UserServices {
     void DeleteUser(String cin);
 
     void AddUser(UsersAppDTO usersAppDTO);
+
+    Long count();
 }

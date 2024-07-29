@@ -8,6 +8,7 @@ import ma.ensa.sihmoduleadmission.entities.Specialty;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface AppointmentService {
     Appointment save(Appointment appointment);
@@ -17,4 +18,6 @@ public interface AppointmentService {
     void deleteappointement(Long id);
     List<AppointmentDTOForDoctor> TodaySAppointment(String cinDocotor, String specialityName);
     Appointment findbyid(Long id);
+
+    Map<String, Long> countPatientsByMonth(int year);
 }

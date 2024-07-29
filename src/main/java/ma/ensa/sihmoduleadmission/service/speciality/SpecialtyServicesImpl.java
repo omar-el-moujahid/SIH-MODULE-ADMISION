@@ -1,7 +1,6 @@
 package ma.ensa.sihmoduleadmission.service.speciality;
 
 import lombok.extern.slf4j.Slf4j;
-import ma.ensa.sihmoduleadmission.dto.PatientDTO;
 import ma.ensa.sihmoduleadmission.dto.SpecialtyDTO;
 import ma.ensa.sihmoduleadmission.entities.Specialty;
 import ma.ensa.sihmoduleadmission.expetion.ApiRequestExpetion;
@@ -55,5 +54,13 @@ public class SpecialtyServicesImpl implements SpecialtyServices {
     @Override
     public Specialty save(Specialty specialty) {
         return specialtyRepo.save(specialty) ;
+    }
+    @Override
+    public Long count() {
+        return specialtyRepo.count();
+    }
+    @Override
+    public Long countBySpeciality(String specialityName) {
+        return specialtyRepo.countAllBySpecialtyName(specialityName);
     }
 }

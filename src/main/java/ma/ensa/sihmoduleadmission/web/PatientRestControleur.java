@@ -89,5 +89,11 @@ public class PatientRestControleur {
         return ResponseEntity.ok("Password updated successfully");
     }
 
+    @GetMapping("/patient/Count")
+    public Long countPatient() {
+        return patientServicesImpl.count();
+    }
+
+
 }
 

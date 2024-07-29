@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -51,5 +52,10 @@ public class AppointmentRestControleur {
     @GetMapping("chu/doctor/TodaySAppointment")
     List<AppointmentDTOForDoctor> TodaySAppointment(@RequestParam String CINDocotor , String SpecialityName){
        return appointmentServiceImpl.TodaySAppointment(CINDocotor,SpecialityName);
+    }
+
+    @GetMapping("chu//appointment/countByMonth")
+    public Map<String, Long> countPatientsByMonth(@RequestParam int year) {
+        return appointmentServiceImpl.countPatientsByMonth(year);
     }
 }

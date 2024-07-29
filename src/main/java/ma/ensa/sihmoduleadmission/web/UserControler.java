@@ -1,19 +1,8 @@
 package ma.ensa.sihmoduleadmission.web;
 
 import jakarta.validation.Valid;
-import ma.ensa.sihmoduleadmission.dto.SpecialtyDTO;
 import ma.ensa.sihmoduleadmission.dto.UsersAppDTO;
-import ma.ensa.sihmoduleadmission.entities.Specialty;
-import ma.ensa.sihmoduleadmission.entities.securiy.RolesApp;
-import ma.ensa.sihmoduleadmission.entities.securiy.UsersApp;
-import ma.ensa.sihmoduleadmission.repos.UserRepo;
 import ma.ensa.sihmoduleadmission.service.Userservice.UserServices;
-import ma.ensa.sihmoduleadmission.service.medicale_history.MedicalHistoryServiceImpl;
-import ma.ensa.sihmoduleadmission.service.appointment.AppointmentServiceImpl;
-import ma.ensa.sihmoduleadmission.service.doctor.DoctorServicesImpl;
-import ma.ensa.sihmoduleadmission.service.patient.PatientServicesImpl;
-import ma.ensa.sihmoduleadmission.service.planification.PlanificationServicesImpl;
-import ma.ensa.sihmoduleadmission.service.speciality.SpecialtyServicesImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -97,5 +86,9 @@ public class UserControler {
     @PostMapping("/user/AddUser")
     public void AddUser( @Valid @RequestBody UsersAppDTO usersAppDTO){
         userServices.AddUser(usersAppDTO);
+    }
+    @GetMapping("/user/Count")
+    public Long countUser() {
+        return userServices.count();
     }
 }

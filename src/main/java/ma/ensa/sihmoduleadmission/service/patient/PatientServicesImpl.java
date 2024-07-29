@@ -5,7 +5,6 @@ import ma.ensa.sihmoduleadmission.dto.PatientDTO;
 import ma.ensa.sihmoduleadmission.entities.Patient;
 import ma.ensa.sihmoduleadmission.entities.securiy.RolesApp;
 import ma.ensa.sihmoduleadmission.expetion.ApiRequestExpetion;
-import ma.ensa.sihmoduleadmission.expetion.CINNotFound;
 import ma.ensa.sihmoduleadmission.expetion.thrabelauthontification;
 import ma.ensa.sihmoduleadmission.mapper.SIHMapper;
 import ma.ensa.sihmoduleadmission.repos.PatientRepo;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,4 +85,9 @@ public class PatientServicesImpl implements PatientServices {
         }
         patientRepo.updateByCNEPassword(CIN,passwordEncoder.encode(Newpassword));
     }
+    @Override
+    public long count() {
+        return  patientRepo.count();
+    }
+
 }

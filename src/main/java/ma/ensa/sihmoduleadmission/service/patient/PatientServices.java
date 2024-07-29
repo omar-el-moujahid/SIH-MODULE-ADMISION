@@ -18,4 +18,6 @@ public interface PatientServices {
     Patient authentication(String CNI, String password) throws thrabelauthontification;
 
     void Updatepassword(String CIN, String Oldpassword, String Newpassword);
+
+    long count();
 }

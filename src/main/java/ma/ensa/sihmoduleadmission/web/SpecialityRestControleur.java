@@ -11,6 +11,7 @@ import ma.ensa.sihmoduleadmission.service.speciality.SpecialtyServicesImpl;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -40,5 +41,10 @@ public class SpecialityRestControleur {
     public List<SpecialtyDTO> specialtyDTOS() {
         List<SpecialtyDTO> specialties = specialtyServicesImpl.findAll();
         return specialtyServicesImpl.findAll();
+    }
+    @GetMapping("/specialities/Count")
+    public Long countUser( @RequestParam(required = false) String SpecialityName) {
+        if(SpecialityName==null || SpecialityName.isEmpty()) return specialtyServicesImpl.count();
+        return specialtyServicesImpl.countBySpeciality(SpecialityName);
     }
 }

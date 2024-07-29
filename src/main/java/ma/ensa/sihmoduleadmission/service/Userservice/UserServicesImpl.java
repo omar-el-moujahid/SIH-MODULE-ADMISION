@@ -187,5 +187,10 @@ public class UserServicesImpl implements UserServices  {
         userRepo.save(usersApp);
     }
 
+    @Override
+    public Long count() {
+        return userRepo.count();
+    }
+
 }
 

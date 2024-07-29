@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SpecialtyRepo extends JpaRepository<Specialty,Long> {
     Specialty findBySpecialtyName(String string);
+    Long countAllBySpecialtyName(String s);
 }

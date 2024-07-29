@@ -12,4 +12,7 @@ public interface SpecialtyServices {
      List<Specialty> findbyname(String name, int page, int size);
      Specialty save(Specialty specialty);
 
+    Long count();
+
+     Long countBySpeciality(String specialityName);
 }

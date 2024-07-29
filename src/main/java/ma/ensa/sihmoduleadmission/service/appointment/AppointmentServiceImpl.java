@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -132,5 +133,9 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public Appointment findbyid(Long id) {
         return appointmentRepo.findById(id).orElseThrow(() -> new ApiRequestExpetion("Appointment nof found"));
+    }
+    @Override
+    public Map<String, Long> countPatientsByMonth(int year) {
+        return appointmentRepo.countPatientsByMonth(year);
     }
 }
