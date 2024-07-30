@@ -20,10 +20,12 @@ public interface AppointmentRepo extends JpaRepository<Appointment,Long> {
                                                                     @Param("date") Date date );
     List<Appointment>  findAppointmentByDoctorAndSpecialtyAndDateofRDV(Doctor doctor , Specialty specialty ,Date date);
     List<Appointment> findAppointmentByDoctorAndSpecialtyAndDateofRDVEqualsAndAnnuleFalseAndIspasseFalse(Doctor doctor , Specialty specialty , Date date);
-    @Query("SELECT FUNCTION('MONTHNAME', p.dateofRDV) AS month, COUNT(p) AS count " +
-            "FROM Appointment p WHERE YEAR(p.dateofRDV) = :year AND p.ispasse = true " +
-            "GROUP BY FUNCTION('MONTH', p.dateofRDV) " +
-            "ORDER BY FUNCTION('MONTH', p.dateofRDV)")
+//    @Query("SELECT FUNCTION('MONTHNAME', p.dateofRDV) AS month, COUNT(p) AS count " +
+//            "FROM Appointment p WHERE YEAR(p.dateofRDV) = :year AND p.ispasse = true " +
+//            "GROUP BY FUNCTION('MONTH', p.dateofRDV) " +
+//            "ORDER BY FUNCTION('MONTH', p.dateofRDV)")
+//    Map<String, Long> countPatientsByMonth(@Param("year") int year);
+    @Query("SELECT COUNT(p) AS count " +
+            "FROM Appointment p WHERE YEAR(p.dateofRDV) = :year " )
     Map<String, Long> countPatientsByMonth(@Param("year") int year);
-
 }
